@@ -7,81 +7,36 @@ public class QuickSort {
 
 	public static void main(String[] args) {
 		QuickSort a = new QuickSort();
-		a.solve();
-		int[] array = { 6, 5, 4, 3, 2, 1 };
-		System.out.println(a.sortArray(array));
+		int[] nums = { 6, 5, 4, 3, 2, 1 };
+		a.quick(nums, 0, nums.length - 1);
+		for (int val : nums)
+			System.out.print(val + " ");
 	}
 
-	public List<Integer> sortArray(int[] nums) {
-		List<Integer> res = new ArrayList<>();
-		if (nums == null || nums.length == 0)
-			return res;
-		quickSort(nums, 0, nums.length - 1);
-		for (int i : nums)
-			res.add(i);
-		return res;
-	}
-
-	private void quickSort(int[] nums, int l, int r) {
-		if (l >= r)
-			return;
-		int mid = partition2(nums, l, r);
-		quickSort(nums, l, mid);
-		quickSort(nums, mid + 1, r);
-	}
-
-	private int partition2(int[] nums, int l, int r) {
-		int pivot = nums[l];
-		while (l < r) {
-			while (l < r && nums[r] >= pivot)
-				r--;
-			nums[l] = nums[r];
-			while (l < r && nums[l] <= pivot)
-				l++;
-			nums[r] = nums[l];
+	private void quick(int[] arr, int s, int e) {
+		int part = partition(arr, s, e);
+		if (s < part - 1) {
+			quick(arr, s, part - 1);
 		}
-		nums[l] = pivot;
-		return l;
-	}
-
-	private void solve() {
-		int[] array = { 6, 5, 4, 3, 2, 1 };
-		quicksort(array, 0, array.length - 1);
-
-		for (int v : array) {
-			System.out.print(v + " ");
+		if (part < e) {
+			quick(arr, part, e);
 		}
 	}
 
-	public void quicksort(int[] array, int left, int right) {
-		if (left >= right) {
-			return;
-		}
-		int pi = partition(array, left, right);
-		quicksort(array, left, pi - 1);
-		quicksort(array, pi + 1, right);
-	}
-
-	public int partition(int[] array, int left, int right) {
-		int mid = (left + right) / 2;
-		swap(array, left, mid);
-
-		int pivot = array[left];
-		int i = left, j = right;
-
-		while (i < j) {
-			while (pivot < array[j]) {
-				j--;
+	private int partition(int[] arr, int s, int e) {
+		int pivot = arr[(s + e) / 2];
+		while (s <= e) {
+			while (arr[s] < pivot)
+				s++;
+			while (arr[e] > pivot)
+				e--;
+			if (s <= e) {
+				swap(arr, s, e);
+				s++;
+				e--;
 			}
-
-			while (i < j && pivot >= array[i]) {
-				i++;
-			}
-			swap(array, i, j);
 		}
-		array[left] = array[i];
-		array[i] = pivot;
-		return i;
+		return s;
 	}
 
 	public void swap(int[] array, int a, int b) {
