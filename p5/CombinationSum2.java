@@ -19,7 +19,7 @@ public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 
 	private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] cand, int remain, int start) {
 	   
-	   if(remain < 0) return; /** no solution */
+	   if(remain < 0) return; 
 	   else if(remain == 0) list.add(new ArrayList<>(tempList));
 	   else{
 	      for (int i = start; i < cand.length; i++) {
