@@ -23,7 +23,7 @@ public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 	   else if(remain == 0) list.add(new ArrayList<>(tempList));
 	   else{
 	      for (int i = start; i < cand.length; i++) {
-	         if(i > start && cand[i] == cand[i-1]) continue; /** skip duplicates */
+	         if(i > start && cand[i] == cand[i-1]) continue;
 	         tempList.add(cand[i]);
 	         backtrack(list, tempList, cand, remain - cand[i], i+1);
 	         tempList.remove(tempList.size() - 1);
